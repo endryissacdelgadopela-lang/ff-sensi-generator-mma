@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Generador de Sensibilidad FF</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#0f172a;
+    color:white;
+    margin:0;
+    padding:20px;
+}
+
+.container{
+    max-width:500px;
+    margin:auto;
+    background:#1e293b;
+    padding:20px;
+    border-radius:15px;
+}
+
+h1{
+    text-align:center;
+}
+
+select,button{
+    width:100%;
+    padding:12px;
+    margin-top:10px;
+    border:none;
+    border-radius:10px;
+}
+
+button{
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.result{
+    margin-top:20px;
+    background:#111827;
+    padding:15px;
+    border-radius:10px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<h1>🔥 Generador Sensi FF 🔥</h1>
+
+<label>Dispositivo</label>
+<select id="device">
+    <option>Redmi</option>
+    <option>Xiaomi</option>
+    <option>Samsung</option>
+    <option>Infinix</option>
+    <option>Tecno</option>
+    <option>Realme</option>
+    <option>Motorola</option>
+    <option>Huawei</option>
+    <option>iPhone</option>
+    <option>Otro</option>
+</select>
+
+<label>¿Usas DPI?</label>
+<select id="dpiMode">
+    <option value="si">Sí</option>
+    <option value="no">No</option>
+</select>
+
+<button onclick="generar()">Generar Sensibilidad</button>
+
+<div class="result" id="resultado">
+Selecciona opciones y pulsa generar.
+</div>
+
+</div>
+
+<script>
+function rand(min,max){
+  return Math.floor(Math.random()*(max-min+1))+min;
+}
+
+function generar(){
+
+  const device = document.getElementById("device").value;
+  const dpiMode = document.getElementById("dpiMode").value;
+
+  let dpi = "No usado";
+
+  if(dpiMode === "si"){
+      dpi = rand(520,720);
+  }
+
+  const general = rand(92,100);
+  const redDot = rand(88,100);
+  const mira2x = rand(80,95);
+  const mira4x = rand(70,85);
+  const awm = rand(20,45);
+  const libre = rand(80,100);
+  const boton = rand(45,65);
+
+  document.getElementById("resultado").innerHTML = `
+    <h3>📱 ${device}</h3>
+    <p><b>DPI:</b> ${dpi}</p>
+    <p><b>General:</b> ${general}</p>
+    <p><b>Punto Rojo:</b> ${redDot}</p>
+    <p><b>Mira 2X:</b> ${mira2x}</p>
+    <p><b>Mira 4X:</b> ${mira4x}</p>
+    <p><b>AWM:</b> ${awm}</p>
+    <p><b>Cámara Libre:</b> ${libre}</p>
+    <p><b>Botón de Disparo:</b> ${boton}%</p>
+  `;
+}
+</script>
+
+</body>
+</html>
