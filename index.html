@@ -3,120 +3,151 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Generador de Sensibilidad FF</title>
+<title>FF Sensi Generator Pro</title>
 
 <style>
 body{
-    font-family: Arial, sans-serif;
-    background:#0f172a;
-    color:white;
-    margin:0;
-    padding:20px;
+margin:0;
+font-family:Arial;
+background:#0b1220;
+color:white;
+text-align:center;
+padding:20px;
 }
 
 .container{
-    max-width:500px;
-    margin:auto;
-    background:#1e293b;
-    padding:20px;
-    border-radius:15px;
+max-width:700px;
+margin:auto;
+background:#111827;
+padding:20px;
+border-radius:15px;
+box-shadow:0 0 20px #00ffff55;
 }
 
 h1{
-    text-align:center;
+color:#00ffff;
 }
 
 select,button{
-    width:100%;
-    padding:12px;
-    margin-top:10px;
-    border:none;
-    border-radius:10px;
+width:100%;
+padding:12px;
+margin-top:10px;
+border-radius:10px;
+border:none;
+font-size:15px;
 }
 
 button{
-    cursor:pointer;
-    font-weight:bold;
+background:#00ffff;
+font-weight:bold;
+cursor:pointer;
 }
 
 .result{
-    margin-top:20px;
-    background:#111827;
-    padding:15px;
-    border-radius:10px;
+margin-top:20px;
+background:#0f172a;
+padding:15px;
+border-radius:10px;
+text-align:left;
+white-space:pre-line;
+}
+
+.copy{
+background:#22c55e;
+margin-top:10px;
 }
 </style>
 </head>
+
 <body>
 
 <div class="container">
 
-<h1>🔥 Generador Sensi FF 🔥</h1>
+<h1>🔥 FF SENSI GENERATOR PRO 🔥</h1>
 
-<label>Dispositivo</label>
 <select id="device">
-    <option>Redmi</option>
-    <option>Xiaomi</option>
-    <option>Samsung</option>
-    <option>Infinix</option>
-    <option>Tecno</option>
-    <option>Realme</option>
-    <option>Motorola</option>
-    <option>Huawei</option>
-    <option>iPhone</option>
-    <option>Otro</option>
+<option>Xiaomi Redmi 10C</option>
+<option>Xiaomi Redmi 12</option>
+<option>POCO X3 Pro</option>
+<option>Samsung A14</option>
+<option>Samsung A15</option>
+<option>Infinix Hot 40</option>
+<option>Tecno Spark 20</option>
+<option>ZTE Blade A36</option>
+<option>iPhone 11</option>
+<option>iPhone 12</option>
+<option>iPhone 13</option>
+<option>iPhone 14</option>
+<option>iPhone 15</option>
 </select>
 
-<label>¿Usas DPI?</label>
-<select id="dpiMode">
-    <option value="si">Sí</option>
-    <option value="no">No</option>
+<select id="fps">
+<option>30 FPS</option>
+<option>60 FPS</option>
+<option>90 FPS</option>
+<option>120 FPS</option>
 </select>
 
-<button onclick="generar()">Generar Sensibilidad</button>
+<select id="dpi">
+<option value="no">Sin DPI</option>
+<option value="si">Con DPI</option>
+</select>
 
-<div class="result" id="resultado">
-Selecciona opciones y pulsa generar.
-</div>
+<button onclick="generar()">🔥 Generar Sensibilidad</button>
+
+<div class="result" id="res">Selecciona opciones</div>
+
+<button class="copy" onclick="copiar()">📋 Copiar Resultado</button>
 
 </div>
 
 <script>
+
+let texto="";
+
 function rand(min,max){
-  return Math.floor(Math.random()*(max-min+1))+min;
+return Math.floor(Math.random()*(max-min+1))+min;
 }
 
 function generar(){
 
-  const device = document.getElementById("device").value;
-  const dpiMode = document.getElementById("dpiMode").value;
+let device=document.getElementById("device").value;
+let fps=document.getElementById("fps").value;
+let dpiMode=document.getElementById("dpi").value;
 
-  let dpi = "No usado";
+let dpi = dpiMode==="si" ? rand(520,720) : "No usado";
 
-  if(dpiMode === "si"){
-      dpi = rand(520,720);
-  }
+let base = device.includes("iPhone") ? 95 : 98;
 
-  const general = rand(92,100);
-  const redDot = rand(88,100);
-  const mira2x = rand(80,95);
-  const mira4x = rand(70,85);
-  const awm = rand(20,45);
-  const libre = rand(80,100);
-  const boton = rand(45,65);
+let general = rand(base-3,100);
+let red = rand(base-8,100);
+let x2 = rand(80,95);
+let x4 = rand(70,85);
+let awm = rand(20,45);
+let libre = rand(80,100);
+let boton = rand(45,65);
 
-  document.getElementById("resultado").innerHTML = `
-    <h3>📱 ${device}</h3>
-    <p><b>DPI:</b> ${dpi}</p>
-    <p><b>General:</b> ${general}</p>
-    <p><b>Punto Rojo:</b> ${redDot}</p>
-    <p><b>Mira 2X:</b> ${mira2x}</p>
-    <p><b>Mira 4X:</b> ${mira4x}</p>
-    <p><b>AWM:</b> ${awm}</p>
-    <p><b>Cámara Libre:</b> ${libre}</p>
-    <p><b>Botón de Disparo:</b> ${boton}%</p>
-  `;
+texto=
+`📱 Dispositivo: ${device}
+⚡ FPS: ${fps}
+🎯 DPI: ${dpi}
+
+🔥 General: ${general}
+🎯 Punto Rojo: ${red}
+🔭 2X: ${x2}
+🔭 4X: ${x4}
+🎯 AWM: ${awm}
+📷 Libre: ${libre}
+🔫 Botón: ${boton}%`;
+
+document.getElementById("res").innerText=texto;
 }
+
+function copiar(){
+navigator.clipboard.writeText(texto);
+alert("Copiado!");
+}
+
 </script>
 
 </body>
